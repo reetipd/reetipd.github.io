@@ -7,24 +7,118 @@ header .navbar .navbar-nav a {
     color: var(--text-color) !important;
 }
 
-.navbar-toggler {
-    border: none;
-    outline: none;
-    color: var(--text-color);
+.navbar {
+    position: fixed;
+    width: 100%;
+    background-color: var(--background-color);
+    z-index: 1000;
+    top: 0;
 }
+
+.navbar-toggler {
+    padding: 0.25rem 0.5rem;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 0.25rem;
+    outline: none !important;
+}
+
+.navbar-toggler:hover,
+.navbar-toggler:focus {
+    background-color: rgba(0,0,0,0.05);
+}
+
+.custom-toggler {
+    display: inline-block;
+    padding: 0.5rem;
+    background-color: var(--secondary-background-color);
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.custom-toggler:hover {
+    background-color: var(--secondary-color);
+}
+
 .navbar-toggler svg {
     fill: currentColor;
     color: var(--text-color);
 }
-.navbar-toggler:focus {
-    box-shadow: 0 0 0 .05em;
+
+/* Mobile navbar styles */
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        width: 100%;
+        background-color: var(--background-color);
+        padding: 1rem;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+        border-radius: 0 0 0.5rem 0.5rem;
+        transition: opacity 0.3s ease;
+        text-align: center;
+        max-height: calc(100vh - 80px);
+        overflow-y: auto;
+    }
+    
+    .navbar-collapse.show {
+        opacity: 1;
+        display: block !important;
+    }
+    
+    .navbar-collapse:not(.show) {
+        opacity: 0;
+    }
+    
+    .navbar-nav {
+        padding-left: 0;
+        align-items: center;
+    }
+    
+    .nav-item {
+        margin: 0.75rem 0;
+    }
+    
+    .nav-link {
+        font-size: 1.1rem !important;
+        padding: 0.5rem 1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-link:hover {
+        background-color: var(--secondary-background-color);
+        border-radius: 0.25rem;
+    }
 }
+
+@media (min-width: 992px) {
+    .navbar-collapse {
+        position: static;
+        background-color: transparent;
+        padding: 0;
+        box-shadow: none;
+        display: flex !important;
+        opacity: 1 !important;
+    }
+    
+    .navbar-nav {
+        flex-direction: row;
+    }
+    
+    .nav-item {
+        margin: 0 0.5rem;
+    }
+}
+
 .navbar-text {
     font-size: 16px !important;
     opacity: 0.95;
 }
 header .nav-link{
-    transition: none !important;
+    transition: all 0.3s ease !important;
 }
 .navbar-brand {
     color: var(--primary-color) !important;

@@ -26,6 +26,7 @@
 
 
 <link rel="stylesheet" href="/css/font.css" media="all">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 
 
@@ -68,6 +69,7 @@
         font-weight: 400;
         line-height: 1.5;
         text-align: left;
+        padding-top: 85px; /* Add padding to account for fixed navbar */
     }
 
     html {
@@ -95,6 +97,58 @@
         width: .5em;
         height: .1em;
         background-color: var(--background-color);
+    }
+
+    /* Custom mobile menu styles */
+    @media (max-width: 991.98px) {
+        .navbar-collapse {
+            background-color: var(--background-color) !important;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15) !important;
+            position: fixed !important;
+            top: 80px !important;
+            height: calc(100vh - 80px) !important;
+            width: 100% !important;
+            left: 0 !important;
+            overflow-y: auto !important;
+            z-index: 1000 !important;
+        }
+        
+        .navbar-collapse.show {
+            display: block !important;
+            opacity: 1 !important;
+        }
+        
+        .nav-link {
+            padding: 0.75rem 1rem !important;
+            margin: 0.5rem 0.5rem !important;
+            border-radius: 0.5rem !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .nav-link:hover {
+            background-color: var(--secondary-background-color) !important;
+            transform: translateY(-2px) !important;
+        }
+        
+        .navbar-nav {
+            padding: 1rem !important;
+        }
+        
+        .custom-toggler {
+            background-color: transparent !important;
+            padding: 0.5rem !important;
+            border: none !important;
+        }
+        
+        .custom-toggler:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+        
+        .fa-bars {
+            color: var(--primary-color) !important;
+            font-size: 1.75rem !important;
+        }
     }
 </style>
 
@@ -128,17 +182,12 @@ Reeti Pradhananga
             </a>
 
             
-
-            
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-                <svg aria-hidden="true" height="24" viewBox="0 0 16 16" version="1.1" width="24" data-view-component="true">
-                    <path fill-rule="evenodd" d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z"></path>
-                </svg>
+            <button class="navbar-toggler custom-toggler" type="button" id="navbarToggler" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
             </button>
 
             
-            <div class="collapse navbar-collapse text-wrap primary-font" id="navbarContent">
+            <div class="navbar-collapse" id="navbarContent">
                 <ul class="navbar-nav ms-auto text-center">
                     
 
@@ -1138,6 +1187,113 @@ Reeti Pradhananga
                 project.style.transition = 'opacity 0.3s ease';
             });
         }
+    });
+</script>
+
+<script src="/bootstrap-5/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const navbarToggler = document.getElementById('navbarToggler');
+        const navbarContent = document.getElementById('navbarContent');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        // Function to check if we're in mobile view
+        function isMobileView() {
+            return window.innerWidth < 992;
+        }
+        
+        // Lock body scroll
+        function lockBodyScroll() {
+            // Store current scroll position
+            const scrollY = window.scrollY;
+            // Add styles to body to prevent scrolling
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollY}px`;
+            document.body.style.width = '100%';
+            document.body.style.overflowY = 'scroll';
+            // Save scroll position for later
+            document.body.dataset.scrollY = scrollY;
+        }
+        
+        // Unlock body scroll
+        function unlockBodyScroll() {
+            // Restore scroll position
+            if (document.body.style.position === 'fixed') {
+                const scrollY = parseInt(document.body.dataset.scrollY || '0');
+                // Remove fixed positioning
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.width = '';
+                document.body.style.overflowY = '';
+                // Jump back to previous scroll position
+                window.scrollTo(0, scrollY);
+            }
+        }
+        
+        // Initial setup - hide navbar on mobile
+        function initNavbar() {
+            if (isMobileView()) {
+                navbarContent.style.display = 'none';
+                navbarContent.style.opacity = '0';
+                navbarContent.classList.remove('show');
+                unlockBodyScroll();
+            } else {
+                navbarContent.style.display = 'flex';
+                navbarContent.style.opacity = '1';
+                unlockBodyScroll();
+            }
+        }
+        
+        // Toggle navbar visibility
+        function toggleNavbar() {
+            if (navbarContent.style.display === 'none' || !navbarContent.style.display) {
+                // Show navbar
+                navbarContent.style.display = 'block';
+                // Force reflow
+                void navbarContent.offsetWidth;
+                navbarContent.style.opacity = '1';
+                navbarContent.classList.add('show');
+                lockBodyScroll();
+            } else {
+                // Hide navbar
+                navbarContent.style.opacity = '0';
+                navbarContent.classList.remove('show');
+                unlockBodyScroll();
+                setTimeout(() => {
+                    navbarContent.style.display = 'none';
+                }, 300); // Match transition duration
+            }
+        }
+        
+        // Add event listeners
+        navbarToggler.addEventListener('click', toggleNavbar);
+        
+        // Close navbar when a link is clicked on mobile
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (isMobileView() && navbarContent.style.display !== 'none') {
+                    toggleNavbar();
+                }
+            });
+        });
+        
+        // Handle window resize events
+        window.addEventListener('resize', () => {
+            if (isMobileView()) {
+                if (navbarContent.style.display !== 'none' && !navbarContent.classList.contains('show')) {
+                    navbarContent.style.display = 'none';
+                    navbarContent.style.opacity = '0';
+                }
+            } else {
+                navbarContent.style.display = 'flex';
+                navbarContent.style.opacity = '1';
+                unlockBodyScroll();
+            }
+        });
+        
+        // Run initial setup
+        initNavbar();
     });
 </script>
 
