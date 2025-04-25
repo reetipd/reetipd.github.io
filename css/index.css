@@ -312,7 +312,6 @@ header .navbar.animate {
 
 /* Skills Section - Simple Style */
 #skills {
-    background-color: var(--background-color);
     padding: 3rem 0;
 }
 
@@ -1107,7 +1106,6 @@ header .navbar.animate {
 
 /* Education Section */
 #education {
-    background-color: var(--background-color);
 }
 
 #education h3 {
@@ -1235,7 +1233,6 @@ header .navbar.animate {
 
 /* Research Publications Section */
 #research {
-    background-color: var(--background-color);
 }
 
 #research h3 {

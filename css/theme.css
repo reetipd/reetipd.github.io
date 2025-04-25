@@ -1,17 +1,7 @@
-/* light mode */
-.light > *{
+/* Base styles */
+html, body {
     background-color: var(--background-color) !important;
     color: var(--text-color) !important;
-}
-
-/* dark mode */
-.dark {
-    --background-color: var(--background-color-dark) !important;
-    --secondary-background-color: var(--secondary-background-color-dark) !important;
-    --text-color: var(--text-color-dark) !important;
-    --text-secondary-color: var(--text-secondary-color-dark) !important;
-    --primary-color: var(--primary-color-dark);
-    --secondary-color: var(--secondary-color-dark);
 }
 
 /* Custom scrollbar */
@@ -35,36 +25,6 @@
 /* Text styles */
 .text-secondary {
     color: var(--text-secondary-color) !important;
-}
-
-/* Theme toggle */
-#theme-toggle:focus {
-    outline: 0;
-}
-
-#theme-toggle svg {
-    height: 18px;
-}
-
-button#theme-toggle {
-    border: none;
-    font-size: 26px;
-    margin: auto 4px;
-    background: transparent;
-    transition: transform 0.3s ease;
-}
-
-button#theme-toggle:hover {
-    transform: rotate(15deg);
-}
-
-body.dark #moon {
-    vertical-align: middle;
-    display: none;
-}
-
-body:not(.dark) #sun {
-    display: none;
 }
 
 /* Selection */
