@@ -150,6 +150,72 @@
             font-size: 1.75rem !important;
         }
     }
+
+    .floating-chat-button {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 60px;
+        height: 60px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease;
+        z-index: 1000;
+    }
+
+    .floating-chat-button::before {
+        content: "Chat with my career bot";
+        position: absolute;
+        bottom: 100%;
+        right: 0;
+        margin-bottom: 10px;
+        padding: 8px 12px;
+        background-color: #343a40;
+        color: white;
+        border-radius: 6px;
+        font-size: 14px;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .floating-chat-button:hover::before {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(-5px);
+    }
+
+    .floating-chat-button:hover {
+        background-color: #0056b3;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        color: white;
+    }
+
+    .floating-chat-button i {
+        font-size: 24px;
+    }
+
+    @media (max-width: 768px) {
+        .floating-chat-button {
+            width: 50px;
+            height: 50px;
+            bottom: 20px;
+            right: 20px;
+        }
+        
+        .floating-chat-button i {
+            font-size: 20px;
+        }
+    }
 </style>
 
 <meta name="description" content=:)>
@@ -694,7 +760,57 @@ Reeti Pradhananga
     <div class="container">
         <h3 class="text-center">Projects</h3>
         <div class="row justify-content-center px-3 px-md-5">
+            <div class="col-lg-4 col-md-6 my-2 project-item">
+                <div class="project-card" title="RAG-based Research Paper QA System">
+                    <div class="project-content">
+                        <h5 class="project-title mt-1">RAG-based Research Paper QA System</h5>
+                        <div class="pb-2">
+                            <span class="badge badge-secondary">Python</span>
+                            <span class="badge badge-secondary">Streamlit</span>
+                            <span class="badge badge-secondary">Groq</span>
+                            <span class="badge badge-secondary">OpenAI</span>
+                            <span class="badge badge-secondary">FAISS</span>
+                            <span class="badge badge-secondary">LangChain</span>
+                        </div>
+                        <div class="card-text secondary-font">
+                            A Retrieval-Augmented Generation (RAG) system that enables users to ask questions about research papers and receive AI-generated answers. Features include PDF document processing, vector embeddings using OpenAI, FAISS vector store for efficient similarity search, and Groq's Llama3-8b-8192 model for response generation.
+                        </div>
+                    </div>
+                    <div class="card-footer py-3">
+                        <span class="m-1 mx-2">
+                            <a href="https://github.com/reetipd/RAG_QA_With_Groq" target="_blank">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
 
+            <div class="col-lg-4 col-md-6 my-2 project-item">
+                <div class="project-card" title="Q&A ChatBot with OpenAI">
+                    <div class="project-content">
+                        <h5 class="project-title mt-1">Q&A ChatBot with OpenAI</h5>
+                        <div class="pb-2">
+                            <span class="badge badge-secondary">Python</span>
+                            <span class="badge badge-secondary">Streamlit</span>
+                            <span class="badge badge-secondary">OpenAI</span>
+                            <span class="badge badge-secondary">LangChain</span>
+                            <span class="badge badge-secondary">LangSmith</span>
+                        </div>
+                        <div class="card-text secondary-font">
+                            A powerful question-answering chatbot built with Streamlit and OpenAI's language models. Features include support for multiple OpenAI models (GPT-3.5 Turbo, GPT-4, GPT-4 Mini), customizable response parameters, secure API key handling, and LangChain integration for enhanced prompt management.
+                        </div>
+                    </div>
+                    <div class="card-footer py-3">
+                        <span class="m-1 mx-2">
+                            <a href="https://github.com/reetipd/Q-A-Chatbot" target="_blank">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
             <div class="col-lg-4 col-md-6 my-2 project-item">
                 <div class="project-card" title="Traffic Frame Prediction">
                     <div class="project-content">
@@ -713,6 +829,10 @@ Reeti Pradhananga
                     </div>
                 </div>
             </div>
+
+                
+           
+
 
             <div class="col-lg-4 col-md-6 my-2 project-item">
                 <div class="project-card" title="Data Analysis Dashboard">
@@ -958,7 +1078,7 @@ Reeti Pradhananga
                 </div>
             </div>
             
-        </div>
+
         
         <div class="text-center mt-4">
             <button id="see-more-btn" class="btn btn-outline-primary">See More Projects</button>
@@ -1167,10 +1287,8 @@ Reeti Pradhananga
             </div>
         </div>
     </div>
-    <div id="contact-form-status"></div>
 </section>
 
-</body>
 
 <!-- See More Projects Button Functionality -->
 <script>
@@ -1315,5 +1433,10 @@ Reeti Pradhananga
         initNavbar();
     });
 </script>
+
+<!-- Floating Chat Button -->
+<a href="https://huggingface.co/spaces/reetipd/career_chatbot" target="_blank" class="floating-chat-button" title="Chat with Career Bot">
+    <i class="fas fa-comments"></i>
+</a>
 
 </html>
